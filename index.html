@@ -3,483 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanket Jagdale - A Profile</title>
-    
+    <title>Sanket Jagdale - Confidential Dossier</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins -->
+
+    <!-- Google Fonts: Roboto Mono & Special Elite -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- GSAP (GreenSock Animation Platform) & ScrollTrigger Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Special+Elite&display=swap" rel="stylesheet">
     
     <!-- TypeIt.js for typing animation -->
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
 
     <style>
+        /* Base styling */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #111111;
-            color: #e5e5e5;
-            overflow-x: hidden;
-            overscroll-behavior: none;
-        }
-
-        h1, h2, h3, h4 {
-            font-weight: 700;
-        }
-
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.3;
-        }
-
-        #progress-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background-color: #4f46e5;
-            z-index: 100;
-        }
-
-        #container {
-            width: 700%; /* 100% for each of the 7 panels */
-            height: 100vh;
+            background-color: #3a3a3a;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-denim-3.png');
+            font-family: 'Roboto Mono', monospace;
+            color: #1a1a1a;
             display: flex;
-            flex-wrap: nowrap;
-        }
-
-        .panel {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 2rem;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 1rem;
         }
-        .panel:not(:first-child) {
-            border-left: 1px solid #222;
-        }
-        
-        .panel-content {
-            max-width: 1200px;
+
+        /* The main folder container */
+        #dossier-container {
             width: 100%;
+            max-width: 1100px;
+            aspect-ratio: 1.5 / 1; /* Maintain a folder-like aspect ratio */
+            background-color: #d8c9a7;
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.2);
             position: relative;
-            z-index: 1; /* Ensure content is above canvas */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #bfae8b;
         }
 
-        .panel-number {
-            position: absolute;
-            top: 50%;
-            left: 5rem;
-            transform: translateY(-50%);
-            font-size: 12rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.05);
-            z-index: 0;
+        /* Folder tabs navigation */
+        #dossier-tabs {
+            display: flex;
+            position: relative;
+            top: 0;
+            left: 5%;
+            width: 90%;
+            padding-top: 20px;
+        }
+
+        .dossier-tab {
+            font-family: 'Special Elite', cursive;
+            padding: 10px 20px 8px 20px;
+            background-color: #c7b897;
+            border: 1px solid #bfae8b;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            bottom: -1px;
+            font-size: 1rem;
+            color: #3d352a;
+            box-shadow: inset 0 3px 5px rgba(255,255,255,0.3);
+        }
+
+        .dossier-tab:hover, .dossier-tab.active {
+            background-color: #e6dace;
+            color: #1a1a1a;
+            bottom: 0;
+            padding-bottom: 10px;
+            box-shadow: none;
+        }
+
+        /* Content area for the pages */
+        #dossier-content {
+            flex-grow: 1;
+            background-color: #e6dace;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            margin: 0 20px 20px 20px;
+            border: 1px solid #bfae8b;
+            padding: 2rem;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .page {
+            display: none; /* Pages are hidden by default */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block; /* Active page is visible */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stamped headings */
+        .stamp {
+            font-family: 'Special Elite', cursive;
+            font-weight: 700;
+            color: #b91c1c; /* Red-700 */
+            border: 3px solid #b91c1c;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            text-transform: uppercase;
+            transform: rotate(-5deg);
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            letter-spacing: 1px;
         }
         
-        .btn {
-            display: inline-block;
-            font-weight: 600;
-            padding: 0.875rem 2.5rem;
-            border-radius: 9999px;
-            text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-        }
-        .btn-primary {
-            background-color: #e5e5e5;
-            color: #111;
-        }
-        .btn-primary:hover {
-            background-color: #fff;
-            transform: scale(1.05);
-        }
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid #e5e5e5;
-            color: #e5e5e5;
-        }
-        .btn-outline:hover {
-            background-color: #e5e5e5;
-            color: #111;
-            transform: scale(1.05);
+        .stamp.blue {
+            color: #1d4ed8; /* Blue-700 */
+            border-color: #1d4ed8;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
+        /* General content styling */
+        h2 {
+            font-family: 'Special Elite', cursive;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            max-width: 80ch;
+        }
+
+        /* Specific element styles */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
             align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.875rem;
+        }
+        
+        .profile-pic-container {
+            width: 150px;
+            height: 180px;
+            background-color: #ccc;
+            border: 5px solid #fff;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            padding: 5px;
+            position: relative;
         }
 
-        /* Subtle background texture for specific panels */
-        .panel-textured {
-            background-image: url('https://www.transparenttextures.com/patterns/subtle-carbon.png');
-            background-blend-mode: overlay;
+        .profile-pic-container::after {
+            content: 'ID: SJ-277';
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            font-family: 'Special Elite', cursive;
+            font-size: 0.9rem;
         }
 
-        /* Style for individual letter animation */
-        #hero-title .char {
+        .skill-tag {
             display: inline-block;
-            opacity: 0;
-            transform: translateY(50px);
+            background-color: rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
+        .skill-tag:hover {
+            background-color: rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            font-family: 'Special Elite', cursive;
+            background-color: #3d352a;
+            color: #e6dace;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 1px solid #3d352a;
+        }
+        .contact-btn:hover {
+            background-color: transparent;
+            color: #3d352a;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body { padding: 0.5rem; }
+            #dossier-container { aspect-ratio: auto; min-height: 95vh; }
+            #dossier-tabs { flex-wrap: wrap; }
+            .dossier-tab { font-size: 0.8rem; padding: 8px 12px; }
+            #dossier-content { padding: 1.5rem; }
+            .profile-grid { grid-template-columns: 1fr; text-align: center; }
+            .profile-pic-container { margin: 0 auto 2rem auto; }
+            .stamp { font-size: 1.25rem; }
+            h2 { font-size: 1.5rem; }
+        }
+
     </style>
 </head>
 <body>
-    <div id="progress-bar"></div>
-    <main id="container">
-        <!-- Panel 1: Hero -->
-        <section class="panel">
-            <canvas id="hero-canvas"></canvas>
-            <div class="panel-content text-center">
-                <h1 class="text-5xl md:text-7xl font-bold leading-tight" id="hero-title">Sanket Jagdale</h1>
-                <p class="mt-4 text-xl md:text-2xl text-gray-400" id="hero-subtitle"></p>
-                <div class="scroll-indicator" id="hero-scroll">
-                    <span>Scroll to Explore</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                </div>
-            </div>
-        </section>
 
-        <!-- Panel 2: About -->
-        <section class="panel panel-textured">
-             <div class="panel-number">01</div>
-            <div class="panel-content max-w-4xl text-left">
-                <h2 class="text-5xl md:text-6xl font-bold mb-6">Introduction</h2>
-                <p id="introduction-text" class="text-xl md:text-2xl leading-relaxed text-gray-300"></p>
-            </div>
-        </section>
+    <div id="dossier-container">
+        <!-- Tabs -->
+        <div id="dossier-tabs">
+            <div class="dossier-tab active" data-tab="profile">Profile</div>
+            <div class="dossier-tab" data-tab="experience">Experience</div>
+            <div class="dossier-tab" data-tab="academics">Academics</div>
+            <div class="dossier-tab" data-tab="skills">Intel</div>
+            <div class="dossier-tab" data-tab="contact">Contact</div>
+        </div>
 
-        <!-- Panel 3: Experience -->
-        <section class="panel">
-            <div class="panel-number">02</div>
-            <div class="panel-content grid md:grid-cols-2 gap-12 items-center">
-                <div class="md:text-right">
-                    <h2 class="text-5xl md:text-6xl font-bold">Professional<br>Experience</h2>
-                </div>
-                <div>
-                    <p class="text-lg text-indigo-300 tracking-widest uppercase font-semibold">Dec 2023 - Jul 2024</p>
-                    <h3 class="text-3xl font-semibold mt-2">Assistant Accountant</h3>
-                    <p class="text-xl text-gray-400 mt-1">Income Tax & GST Consultation, Palus</p>
-                    <ul class="mt-6 text-gray-300 space-y-2" id="experience-list">
-                        <li>&rarr; Ensured accuracy and compliance, resulting in clean audits.</li>
-                        <li>&rarr; Identified and implemented key cost-saving efficiencies.</li>
-                        <li>&rarr; Managed financial records with a focus on data integrity.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Panel 4: Education -->
-        <section class="panel panel-textured">
-            <div class="panel-number">03</div>
-            <div class="panel-content text-center">
-                <h2 class="text-5xl md:text-6xl font-bold mb-12">Academic Foundation</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div class="education-item">
-                        <h3 class="text-3xl font-semibold">PG-MBA, 2nd Year</h3>
-                        <p class="text-xl text-gray-400 mt-1">Parul University, Gujarat</p>
-                    </div>
-                    <div class="education-item">
-                        <h3 class="text-3xl font-semibold">Bachelor of Commerce</h3>
-                        <p class="text-xl text-gray-400 mt-1">Shivaji University, 2021 - 2024</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Panel 5: Skills -->
-        <section class="panel">
-            <div class="panel-number">04</div>
-            <div class="panel-content text-center">
-                <h2 class="text-5xl md:text-6xl font-bold mb-12">Core Competencies</h2>
-                <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto" id="skills-list">
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">MS Excel</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">Tally Prime</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">SAP FICO (S4 HANA)</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">Bookkeeping</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">Financial Reporting</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">Income Tax</span>
-                    <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">GST Consultation</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Panel 6: Strengths & Volunteering -->
-        <section class="panel panel-textured">
-            <div class="panel-number">05</div>
-            <div class="panel-content grid md:grid-cols-2 gap-16 items-start">
-                <div class="strength-item">
-                    <h3 class="text-4xl font-bold mb-6">Key Strengths</h3>
-                     <div class="space-y-6">
-                        <div>
-                            <h4 class="text-2xl font-semibold">Teamwork</h4>
-                            <p class="text-gray-400 mt-1">Fostering unity and purpose to achieve shared goals.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-2xl font-semibold">Self Learner</h4>
-                            <p class="text-gray-400 mt-1">Proactively expanding knowledge and skills independently.</p>
+        <!-- Content Pages -->
+        <div id="dossier-content">
+            <!-- Page 1: Profile -->
+            <div id="profile" class="page active">
+                <div class="stamp">CONFIDENTIAL</div>
+                <div class="profile-grid">
+                    <div>
+                        <div class="profile-pic-container">
+                            <img src="https://raw.githubusercontent.com/artificialintelligence-tejas/sanketjagdale/main/WhatsApp%20Image%202025-07-26%20at%2013.03.16.jpeg" alt="Profile Picture of Sanket Jagdale" class="w-full h-full object-cover">
                         </div>
                     </div>
+                    <div>
+                        <h2>Subject: Sanket Jagdale</h2>
+                        <p id="introduction-text">Awaiting transmission...</p>
+                    </div>
                 </div>
-                 <div class="strength-item">
-                    <h3 class="text-4xl font-bold mb-6">Community</h3>
+            </div>
+
+            <!-- Page 2: Experience -->
+            <div id="experience" class="page">
+                <div class="stamp blue">CLASSIFIED</div>
+                <h2>Field Experience</h2>
+                <p class="font-bold">Dec 2023 - Jul 2024 // Assistant Accountant</p>
+                <p class="mb-4 text-sm">Location: Income Tax & GST Consultation, Palus</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Ensured accuracy and compliance, resulting in clean audits.</li>
+                    <li>Identified and implemented key cost-saving efficiencies.</li>
+                    <li>Managed financial records with a focus on data integrity.</li>
+                </ul>
+            </div>
+
+            <!-- Page 3: Academics -->
+            <div id="academics" class="page">
+                <div class="stamp blue">ACADEMIC RECORD</div>
+                <h2>Educational Background</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-bold text-lg">PG-MBA, 2nd Year</h3>
+                        <p class="m-0">Parul University, Gujarat</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Bachelor of Commerce</h3>
+                        <p class="m-0">Shivaji University, 2021 - 2024</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Community Service</h3>
+                        <p class="m-0">NSS Volunteer (National Service Scheme), 2021 - 2022</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Skills -->
+            <div id="skills" class="page">
+                <div class="stamp">INTEL REPORT</div>
+                <h2>Core Competencies</h2>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="skill-tag">MS Excel</span>
+                    <span class="skill-tag">Tally Prime</span>
+                    <span class="skill-tag">SAP FICO (S4 HANA)</span>
+                    <span class="skill-tag">Bookkeeping</span>
+                    <span class="skill-tag">Financial Reporting</span>
+                    <span class="skill-tag">Income Tax</span>
+                    <span class="skill-tag">GST Consultation</span>
+                </div>
+                <h2>Key Strengths</h2>
+                 <div class="grid md:grid-cols-2 gap-4">
                      <div>
-                        <h4 class="text-2xl font-semibold">NSS Volunteer</h4>
-                        <p class="text-gray-400 mt-1">National Service Scheme, 2021 - 2022</p>
-                    </div>
-                </div>
+                         <h3 class="font-bold">Teamwork</h3>
+                         <p>Fostering unity and purpose to achieve shared goals.</p>
+                     </div>
+                     <div>
+                         <h3 class="font-bold">Self Learner</h3>
+                         <p>Proactively expanding knowledge and skills independently.</p>
+                     </div>
+                 </div>
             </div>
-        </section>
 
-        <!-- Panel 7: Contact -->
-        <section class="panel">
-            <div class="panel-content text-center">
-                <h2 class="text-6xl font-bold mb-6">Get In Touch</h2>
-                <p class="text-xl text-gray-400 max-w-xl mx-auto mb-10">
-                    I'm always open to discussing new opportunities and challenges.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                     <a href="mailto:sanketjagdale277@gmail.com" class="btn btn-primary w-full sm:w-auto">
-                        Email Me
-                    </a>
-                    <a href="https://drive.google.com/file/d/1C7pcsbJ9DliCYORBosQ98UI3yHG4gXAw/view?usp=sharing" download target="_blank" class="btn btn-outline w-full sm:w-auto">
-                        Download Resume
-                    </a>
+            <!-- Page 5: Contact -->
+            <div id="contact" class="page">
+                <div class="stamp">CONTACT PROTOCOL</div>
+                <h2>Get In Touch</h2>
+                <p>Open to discussing new opportunities and challenges. Use the secure channels below.</p>
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <a href="mailto:sanketjagdale277@gmail.com" class="contact-btn">Transmit Email</a>
+                    <a href="https://drive.google.com/file/d/1C7pcsbJ9DliCYORBosQ98UI3yHG4gXAw/view?usp=sharing" target="_blank" class="contact-btn">Download Full Dossier (PDF)</a>
                 </div>
-                <div class="mt-8">
-                    <a href="tel:8623821142" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                 <div class="mt-8">
+                    <a href="tel:8623821142" class="inline-flex items-center hover:text-black transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                         8623821142
                     </a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- HERO CANVAS FINANCIAL GRAPH ANIMATION ---
-            const canvas = document.getElementById('hero-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            const tabs = document.querySelectorAll('.dossier-tab');
+            const pages = document.querySelectorAll('.page');
 
-            let dataPoints = [];
-            let time = 0;
+            // --- Tab Navigation Logic ---
+            tabs.forEach((tab) => {
+                tab.addEventListener('click', () => {
+                    const targetPageId = tab.dataset.tab;
 
-            function generateDataPoints() {
-                dataPoints = [];
-                for(let i = 0; i < canvas.width / 10; i++) {
-                    let value = Math.sin(i * 0.1 + time) * (canvas.height / 6) + canvas.height / 2;
-                    dataPoints.push(value);
-                }
-            }
-
-            function drawGraph() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw grid lines
-                ctx.strokeStyle = 'rgba(79, 70, 229, 0.2)';
-                ctx.lineWidth = 1;
-                for (let i = 0; i < canvas.height; i += 40) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, i);
-                    ctx.lineTo(canvas.width, i);
-                    ctx.stroke();
-                }
-
-                // Draw graph line
-                ctx.strokeStyle = 'rgba(79, 70, 229, 0.8)';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(0, dataPoints[0]);
-                for(let i = 1; i < dataPoints.length; i++) {
-                    ctx.lineTo(i * 10, dataPoints[i]);
-                }
-                ctx.stroke();
-
-                time += 0.05;
-                generateDataPoints();
-                requestAnimationFrame(drawGraph);
-            }
-            
-            generateDataPoints();
-            drawGraph();
-
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                generateDataPoints();
-            });
-
-
-            // --- GSAP SCROLLING ANIMATIONS ---
-            gsap.registerPlugin(ScrollTrigger);
-
-            const container = document.querySelector("#container");
-            const panels = gsap.utils.toArray(".panel");
-
-            const horizontalScroll = gsap.to(panels, {
-                xPercent: -100 * (panels.length - 1),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#container",
-                    pin: true,
-                    scrub: 1,
-                    snap: 1 / (panels.length - 1),
-                    end: () => "+=" + container.offsetWidth,
-                }
-            });
-            
-            gsap.to("#progress-bar", {
-                width: "100%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#container",
-                    scrub: 1,
-                    start: "top top",
-                    end: "bottom bottom"
-                }
-            });
-
-            // --- INTRO PANEL ANIMATIONS ---
-            const titleEl = document.querySelector("#hero-title");
-            const originalText = titleEl.textContent;
-            const chars = originalText.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-            titleEl.innerHTML = chars;
-            
-            gsap.to("#hero-title .char", {
-                y: 0,
-                opacity: 1,
-                stagger: 0.05,
-                duration: 1,
-                ease: "power3.out",
-                delay: 0.5
-            });
-            
-            // Subtitle typing animation
-            new TypeIt("#hero-subtitle", {
-                strings: ["Assistant Accountant", "Financial Analyst", "SAP FICO Specialist"],
-                speed: 50,
-                breakLines: false,
-                waitUntilVisible: true,
-                loop: true,
-                lifeLike: true,
-                delay: 1000
-            }).go();
-
-            gsap.from("#hero-scroll", { opacity: 0, duration: 1, delay: 1.5 });
-
-            panels.forEach((panel, i) => {
-                if (i === 0) return;
-                const content = panel.querySelector('.panel-content');
-                gsap.from(content, {
-                    y: 60,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: horizontalScroll,
-                        start: "left 75%",
-                        toggleActions: "play none none reverse"
-                    }
-                });
-                const panelNumber = panel.querySelector('.panel-number');
-                 if (panelNumber) {
-                    gsap.from(panelNumber, {
-                        x: -50,
-                        opacity: 0,
-                        duration: 1.5,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: panel,
-                            containerAnimation: horizontalScroll,
-                            start: "left 80%",
-                            toggleActions: "play none none reverse"
-                        }
+                    tabs.forEach((t) => {
+                        t.classList.remove('active');
                     });
-                }
-            });
-            
-            const introPanel = panels[1];
-            ScrollTrigger.create({
-                trigger: introPanel,
-                containerAnimation: horizontalScroll,
-                start: "left 60%",
-                toggleActions: "play none none reverse",
-                onEnter: () => {
-                    new TypeIt("#introduction-text", {
-                        strings: "A diligent Assistant Accountant with a year of hands-on experience in financial management and accounting practices. I am proficient in maintaining accurate financial records, reconciling accounts, and preparing financial reports with a strong attention to detail and a commitment to upholding the highest ethical standards. My journey is one of blending practical experience with a constant pursuit of knowledge, currently focused on mastering SAP FICO to bring a blend of practical experience and continuous learning to any team.",
-                        speed: 8,
-                        waitUntilVisible: true,
-                        cursor: false
-                    }).go();
-                }
+
+                    pages.forEach((p) => {
+                        p.classList.remove('active');
+                    });
+
+                    tab.classList.add('active');
+                    document.getElementById(targetPageId).classList.add('active');
+                });
             });
 
-            gsap.from("#experience-list li", {
-                x: -30,
-                opacity: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#experience-list",
-                    containerAnimation: horizontalScroll,
-                    start: "left 80%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-
-            gsap.from("#skills-list span", {
-                scale: 0.5,
-                opacity: 0,
-                stagger: 0.1,
-                duration: 0.5,
-                ease: "back.out(1.7)",
-                scrollTrigger: {
-                    trigger: "#skills-list",
-                    containerAnimation: horizontalScroll,
-                    start: "left 80%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-
-            gsap.from(".strength-item", {
-                y: 50,
-                opacity: 0,
-                stagger: 0.2,
-                duration: 1,
-                ease: "power3.out",
-                 scrollTrigger: {
-                    trigger: ".strength-item",
-                    containerAnimation: horizontalScroll,
-                    start: "left 80%",
-                    toggleActions: "play none none reverse"
-                }
-            });
+            // --- Introduction Text Typing Animation ---
+            new TypeIt("#introduction-text", {
+                strings: "A diligent Assistant Accountant with hands-on experience in financial management and accounting practices. Proficient in maintaining accurate financial records, reconciling accounts, and preparing financial reports. My journey is one of blending practical experience with a constant pursuit of knowledge, currently focused on mastering SAP FICO.",
+                speed: 20,
+                waitUntilVisible: true,
+                cursor: true,
+                cursorChar: "▋",
+                lifeLike: true
+            }).go();
         });
     </script>
+
 </body>
 </html>
