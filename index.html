@@ -113,6 +113,12 @@
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.875rem;
         }
+
+        /* Subtle background texture for specific panels */
+        .panel-textured {
+            background-image: url('https://www.transparenttextures.com/patterns/subtle-carbon.png');
+            background-blend-mode: overlay;
+        }
     </style>
 </head>
 <body>
@@ -121,9 +127,9 @@
         <!-- Panel 1: Hero -->
         <section class="panel">
             <div class="panel-content text-center">
-                <h1 class="text-6xl md:text-9xl font-bold leading-tight">Sanket Jagdale</h1>
-                <p class="mt-4 text-xl md:text-2xl text-gray-400">A Profile in Financial Excellence</p>
-                <div class="scroll-indicator">
+                <h1 class="text-6xl md:text-9xl font-bold leading-tight" id="hero-title">Sanket Jagdale</h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-400" id="hero-subtitle">A Profile in Financial Excellence</p>
+                <div class="scroll-indicator" id="hero-scroll">
                     <span>Scroll to Explore</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </div>
@@ -131,7 +137,7 @@
         </section>
 
         <!-- Panel 2: About -->
-        <section class="panel">
+        <section class="panel panel-textured">
              <div class="panel-number">01</div>
             <div class="panel-content max-w-4xl text-center">
                 <h2 class="text-5xl md:text-6xl font-bold mb-6">Introduction</h2>
@@ -152,7 +158,7 @@
                     <p class="text-lg text-indigo-300 tracking-widest uppercase">Dec 2023 - Jul 2024</p>
                     <h3 class="text-3xl font-semibold mt-2">Assistant Accountant</h3>
                     <p class="text-xl text-gray-400 mt-1">Income Tax & GST Consultation, Palus</p>
-                    <ul class="mt-6 text-gray-300 space-y-2">
+                    <ul class="mt-6 text-gray-300 space-y-2" id="experience-list">
                         <li>&rarr; Ensured accuracy and compliance, resulting in clean audits.</li>
                         <li>&rarr; Identified and implemented key cost-saving efficiencies.</li>
                         <li>&rarr; Managed financial records with a focus on data integrity.</li>
@@ -162,16 +168,16 @@
         </section>
 
         <!-- Panel 4: Education -->
-        <section class="panel">
+        <section class="panel panel-textured">
             <div class="panel-number">03</div>
             <div class="panel-content text-center">
                 <h2 class="text-5xl md:text-6xl font-bold mb-12">Academic Foundation</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div>
+                    <div class="education-item">
                         <h3 class="text-3xl font-semibold">PG-MBA, 1st Year</h3>
                         <p class="text-xl text-gray-400 mt-1">Parul University, Gujarat</p>
                     </div>
-                    <div>
+                    <div class="education-item">
                         <h3 class="text-3xl font-semibold">Bachelor of Commerce</h3>
                         <p class="text-xl text-gray-400 mt-1">Shivaji University, 2021 - 2024</p>
                     </div>
@@ -184,7 +190,7 @@
             <div class="panel-number">04</div>
             <div class="panel-content text-center">
                 <h2 class="text-5xl md:text-6xl font-bold mb-12">Core Competencies</h2>
-                <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto" id="skills-list">
                     <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">MS Excel</span>
                     <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">Tally Prime</span>
                     <span class="bg-gray-800 text-gray-300 py-3 px-6 rounded-full text-lg">SAP FICO (S4 HANA)</span>
@@ -197,10 +203,10 @@
         </section>
 
         <!-- Panel 6: Strengths & Volunteering -->
-        <section class="panel">
+        <section class="panel panel-textured">
             <div class="panel-number">05</div>
             <div class="panel-content grid md:grid-cols-2 gap-16 items-start">
-                <div>
+                <div class="strength-item">
                     <h3 class="text-4xl font-bold mb-6">Key Strengths</h3>
                      <div class="space-y-6">
                         <div>
@@ -213,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                 <div>
+                 <div class="strength-item">
                     <h3 class="text-4xl font-bold mb-6">Community</h3>
                      <div>
                         <h4 class="text-2xl font-semibold">NSS Volunteer</h4>
@@ -238,6 +244,12 @@
                         Download Resume
                     </a>
                 </div>
+                <div class="mt-8">
+                    <a href="tel:8623821142" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        8623821142
+                    </a>
+                </div>
             </div>
         </section>
     </main>
@@ -250,7 +262,7 @@
             const panels = gsap.utils.toArray(".panel");
 
             // Horizontal Scrolling Animation
-            gsap.to(panels, {
+            const horizontalScroll = gsap.to(panels, {
                 xPercent: -100 * (panels.length - 1),
                 ease: "none",
                 scrollTrigger: {
@@ -274,21 +286,93 @@
                 }
             });
 
-            // Animate content within each panel as it comes into view
+            // --- INTRO PANEL ANIMATIONS ---
+            gsap.from("#hero-title", { y: 30, opacity: 0, duration: 1, delay: 0.5 });
+            gsap.from("#hero-subtitle", { y: 30, opacity: 0, duration: 1, delay: 0.8 });
+            gsap.from("#hero-scroll", { opacity: 0, duration: 1, delay: 1.2 });
+
+            // Animate content within each subsequent panel as it comes into view
             panels.forEach((panel, i) => {
+                if (i === 0) return; // Skip hero panel
+
+                // Animate the main content block
                 const content = panel.querySelector('.panel-content');
                 gsap.from(content, {
-                    y: 50,
+                    y: 60,
                     opacity: 0,
-                    duration: 1,
+                    duration: 1.2,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: panel,
-                        containerAnimation: gsap.getTweensOf(panels)[0], // Link to the main horizontal scroll
-                        start: "left center",
+                        containerAnimation: horizontalScroll,
+                        start: "left 75%",
                         toggleActions: "play none none reverse"
                     }
                 });
+
+                // Animate the panel number
+                const panelNumber = panel.querySelector('.panel-number');
+                 if (panelNumber) {
+                    gsap.from(panelNumber, {
+                        x: -50,
+                        opacity: 0,
+                        duration: 1.5,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: panel,
+                            containerAnimation: horizontalScroll,
+                            start: "left 80%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                }
+            });
+            
+            // --- SPECIFIC PANEL ANIMATIONS ---
+
+            // Experience Panel: Stagger list items
+            gsap.from("#experience-list li", {
+                x: -30,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#experience-list",
+                    containerAnimation: horizontalScroll,
+                    start: "left 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // Skills Panel: Stagger tags
+            gsap.from("#skills-list span", {
+                scale: 0.5,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.5,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: "#skills-list",
+                    containerAnimation: horizontalScroll,
+                    start: "left 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // Strengths Panel: Slide in from sides
+            gsap.from(".strength-item", {
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 1,
+                ease: "power3.out",
+                 scrollTrigger: {
+                    trigger: ".strength-item",
+                    containerAnimation: horizontalScroll,
+                    start: "left 80%",
+                    toggleActions: "play none none reverse"
+                }
             });
         });
     </script>
