@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanket Tanaji Jagdale - A Financial Journey</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP (GreenSock Animation Platform) & ScrollTrigger Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Three.js for 3D Background -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f0f2f5;
+            overflow-x: hidden;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .content-section {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+        .scroll-down-indicator span {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .timeline-container {
+            width: 100%;
+            max-width: 48rem; /* 768px */
+        }
+
+        .timeline-card {
+            background-color: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 54, 61, 0.8);
+            border-radius: 1rem;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .skill-cloud {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 40rem;
+        }
+
+        .skill-tag {
+            background-color: #312e81;
+            color: #e0e7ff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <main id="scrolly-container">
+        <!-- Section 1: Hero -->
+        <section class="content-section hero-section" id="hero">
+            <div>
+                <h1 id="hero-title" class="text-5xl md:text-8xl font-extrabold tracking-tighter">Sanket Tanaji Jagdale</h1>
+                <p id="hero-subtitle" class="mt-6 text-lg md:text-2xl text-indigo-300 max-w-3xl mx-auto opacity-0">
+                    A diligent Assistant Accountant on a journey of financial excellence.
+                </p>
+            </div>
+            <div class="scroll-down-indicator">
+                Scroll to begin the journey
+                <span>&darr;</span>
+            </div>
+        </section>
+
+        <!-- Section 2: The Foundation (Education) -->
+        <section class="content-section" id="education">
+            <div class="timeline-container">
+                <div class="timeline-card">
+                    <h2 class="text-4xl font-bold text-indigo-300 mb-2">The Foundation</h2>
+                    <p class="text-lg text-gray-400 mb-8">Building a strong base for a career in finance.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold">PG-MBA, 1st Year</h3>
+                            <p class="text-gray-400">Parul University, Gujarat</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Bachelor of Commerce</h3>
+                            <p class="text-gray-400">Shivaji University (2021 - 2024)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Professional Experience -->
+        <section class="content-section" id="experience">
+            <div class="timeline-container">
+                <div class="timeline-card">
+                    <h2 class="text-4xl font-bold text-indigo-300 mb-2">The First Step</h2>
+                    <p class="text-lg text-gray-400 mb-8">Applying knowledge and gaining practical skills.</p>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Dec 2023 - Jul 2024</p>
+                        <h3 class="text-xl font-semibold">Assistant Accountant</h3>
+                        <p class="text-md text-gray-400 mb-4">Income tax and GST consultation, Palus</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <li>Ensured high accuracy and compliance, leading to clean audits.</li>
+                            <li>Identified and implemented cost-saving efficiencies.</li>
+                            <li>Managed financial records and reconciled accounts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Core Competencies (Skills) -->
+        <section class="content-section" id="skills">
+            <div class="text-center">
+                 <h2 class="text-4xl font-bold text-indigo-300 mb-12">Core Competencies</h2>
+                 <div class="skill-cloud">
+                    <div class="skill-tag">MS Excel</div>
+                    <div class="skill-tag">Tally Prime</div>
+                    <div class="skill-tag">SAP FICO (S4 HANA)</div>
+                    <div class="skill-tag">Bookkeeping</div>
+                    <div class="skill-tag">Financial Reporting</div>
+                    <div class="skill-tag">Income Tax</div>
+                    <div class="skill-tag">GST Consultation</div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 5: The Future -->
+        <section class="content-section" id="future">
+            <div class="text-center max-w-3xl">
+                <h2 class="text-5xl font-bold mb-6">The Journey Ahead</h2>
+                <p class="text-xl text-gray-400 mb-8">
+                    Continuously learning and evolving to meet new challenges in the world of finance. The pursuit of an MBA is the next chapter in a story of growth and ambition.
+                </p>
+                <a href="mailto:sanketjagdale2377@gmail.com" class="inline-block bg-indigo-600 text-white font-semibold py-4 px-10 rounded-lg text-lg hover:bg-indigo-500 transition-colors duration-300">
+                    Connect with me
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        // --- THREE.JS 3D BACKGROUND ---
+        import * as THREE from 'three';
+
+        let camera, scene, renderer;
+        let particles;
+
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 500;
+
+            // Scene
+            scene = new THREE.Scene();
+
+            // Particles
+            const particleCount = 5000;
+            const positions = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 2000;
+            }
+            
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const material = new THREE.PointsMaterial({
+                size: 1.5,
+                color: 0x4f46e5, // Indigo color
+                transparent: true,
+                opacity: 0.7
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            document.addEventListener('mousemove', onMouseMove);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        function onMouseMove(event) {
+            mouseX = (event.clientX - window.innerWidth / 2) / 10;
+            mouseY = (event.clientY - window.innerHeight / 2) / 10;
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+
+            const time = Date.now() * 0.00005;
+            
+            // Animate camera based on mouse movement
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            // Animate particles
+            particles.rotation.x = time * 0.2;
+            particles.rotation.y = time * 0.4;
+            
+            renderer.render(scene, camera);
+        }
+
+        init3D();
+        animate3D();
+
+
+        // --- GSAP SCROLLYTELLING ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Section Animation
+        gsap.to("#hero-subtitle", {
+            opacity: 1,
+            duration: 1.5,
+            delay: 0.5
+        });
+
+        // Pin the hero section and fade out
+        gsap.to("#hero", {
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+                pin: true,
+            },
+            opacity: 0,
+            scale: 0.8
+        });
+
+        // Animate cards on scroll
+        const cards = gsap.utils.toArray('.timeline-card');
+        cards.forEach(card => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Animate skill cloud
+        gsap.to(".skill-tag", {
+            scrollTrigger: {
+                trigger: "#skills",
+                start: "top 60%",
+                toggleActions: "play none none none"
+            },
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)"
+        });
+
+        // Animate 3D background with scroll
+        ScrollTrigger.create({
+            trigger: "#scrolly-container",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+            onUpdate: self => {
+                // Move camera closer on scroll
+                camera.position.z = 500 - (self.progress * 400);
+                // Change particle color on scroll
+                particles.material.color.setHSL(0.65, 0.7, 0.5 + self.progress * 0.3);
+            }
+        });
+
+    </script>
+</body>
+</html>
